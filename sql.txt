@@ -1,0 +1,26 @@
+CREATE TABLE wp_db (ID int(2), lati varchar(20), longi varchar(20));
+
+INSERT INTO wp_db (ID, lati, longi) VALUES ('1', '-10.1231231', '101.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('2', '-9.1231231', '102.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('3', '-7.1231231', '103.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('4', '-6.1231231', '104.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('5', '-5.1231231', '105.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('6', '-4.1231231', '106.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('7', '-3.1231231', '107.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('8', '-2.1231231', '108.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('9', '-1.1231231', '109.1231231');
+INSERT INTO wp_db (ID, lati, longi) VALUES ('10', '-0.1231231', '110.1231231');
+
+DELETE FROM wp_db WHERE ID='10';
+DELETE FROM wp_db WHERE ID='9';
+DELETE FROM wp_db WHERE ID='8';
+DELETE FROM wp_db WHERE ID='7';
+DELETE FROM wp_db WHERE ID='6';
+DELETE FROM wp_db WHERE ID='5';
+DELETE FROM wp_db WHERE ID='4';
+DELETE FROM wp_db WHERE ID='3';
+DELETE FROM wp_db WHERE ID='2';
+DELETE FROM wp_db WHERE ID='1';
+
+SELECT lati FROM wp_db LIMIT 0,1;
+SELECT longi FROM wp_db LIMIT 0,1;

@@ -46,8 +46,10 @@ void setup()
 void loop()
 {
   while (Serial1.available() > 0)
+  {
     if (gps.encode(Serial1.read()))
       displayInfo();
+  }
 
   if (millis() > 5000 && gps.charsProcessed() < 10)
   {

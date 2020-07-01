@@ -61,7 +61,7 @@ void loop()
 void test_jalan()
 {
   // gerak_maju sekitar 10 detik
-  Serial2.print('gerak_maju');
+  Serial2.println('gerak_maju');
   for (int i = 0; i <= 100; i++)
   {
     gerak_maju(200);
@@ -69,7 +69,7 @@ void test_jalan()
   }
 
   // gerak_mundur sekitar 10 detik
-  Serial2.print('gerak_mundur');
+  Serial2.println('gerak_mundur');
   for (int i = 0; i <= 100; i++)
   {
     gerak_mundur(200);
@@ -77,7 +77,7 @@ void test_jalan()
   }
 
   // gerak_kiri sekitar 5 detik
-  Serial2.print('gerak_kiri');
+  Serial2.println('gerak_kiri');
   for (int i = 0; i <= 50; i++)
   {
     gerak_kiri(150);
@@ -85,7 +85,7 @@ void test_jalan()
   }
 
   // gerak_kanan sekitar 5 detik
-  Serial2.print('gerak_kanan');
+  Serial2.println('gerak_kanan');
   for (int i = 0; i <= 50; i++)
   {
     gerak_kanan(150);
@@ -99,9 +99,9 @@ void test_sensor()
   sensor_kanan();
   sensor_depan();
 
-  Serial.println("Sensor Kiri: " + String(SR04_L_distance) + "cm");
-  Serial.println("Sensor Kanan: " + String(SR04_R_distance) + "cm");
-  Serial.println("Sensor Depan: " + String(SR04_F_distance) + "cm");
+  Serial2.println("Sensor Kiri: " + String(SR04_L_distance) + "cm");
+  Serial2.println("Sensor Kanan: " + String(SR04_R_distance) + "cm");
+  Serial2.println("Sensor Depan: " + String(SR04_F_distance) + "cm");
 }
 
 void init_pin()
@@ -231,11 +231,11 @@ void kirim_GPS()
       lati = gps.location.lat();
       longi = gps.location.lng();
       loc = "Lat: " + lati + "; Long: " + longi;
-      Serial2.print(loc);
+      Serial2.println(loc);
     }
     else
     {
-      Serial2.print("Location: Not Available");
+      Serial2.println("Location: Not Available");
     }
   }
 }

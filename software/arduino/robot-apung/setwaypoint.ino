@@ -3,13 +3,13 @@ bool addWP() {
   countcmds = 0;
   cmds = "";
   while(1) {
-    cmds = Serial1.readString();
-    if(cmds != ""){
+    if (Serial1.available() > 0){
+      cmds = Serial1.readString();
       break;
     }
     countcmds++;
     if(countcmds > 100){
-      cmds = "0;1;2;";
+      cmds = "0;0;";
       break;
     }
   }

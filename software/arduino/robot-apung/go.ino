@@ -2,21 +2,14 @@ void goWP() {
   Serial.println("Run Waypoint");
   countWaypoint = 0;
   while (goStatus) {
-    while (Serial1.available()) {
-      cmds = Serial1.readString();
-      cmd = cmds.substring(0, 3);
-      countcmds++;
-      if(countcmds >= 100) break;
+    if (Serial1.available() > 0) {
+      int inByte = Serial1.read();
+      if(inByte == 'f'){
+        Serial.println("Stop Waypoint");
+        goStatus = 0;
+      }
     }
-    if (cmd == "STP") {
-      Serial.println("Stop Waypoint");
-      goStatus = 0;
-    }
-    cmd = "";
-    cmds = "";
-    
     runWP();
-    
     if(countUpdateSensor > 100){
       updateSensor();
       countUpdateSensor = 0;

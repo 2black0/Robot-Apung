@@ -9,13 +9,10 @@ void startup() {
   Serial.println("");
   Serial.println("Searching for Satellites ");
   while (numbSats <= 4) {
-    ///getGPS(); // gps
-    ///numbSats = (int)(gps.satellites.value());
-    Serial.print(numbSats);
-    numbSats++;
-    delay(1000);
+    getGPS(); // gps
+    numbSats = (int)(gps.satellites.value());
   }
-  updateGPS();
+  getGPS();
   Serial.print(numbSats);
   Serial.println(" Satellites Acquired");
 }

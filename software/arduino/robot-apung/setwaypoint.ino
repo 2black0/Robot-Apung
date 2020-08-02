@@ -1,6 +1,64 @@
-void setWaypoint() {
-  int wayPointStatus = 1;
+bool addWP() {
+  Serial.println("Add Waypoint");
+  countcmds = 0;
+  cmds = "";
+  while(1) {
+    cmds = Serial1.readString();
+    if(cmds != ""){
+      break;
+    }
+    countcmds++;
+    if(countcmds > 100){
+      cmds = "0;1;2;";
+      break;
+    }
+  }
+  int firstIndex = cmds.indexOf(';');
+  int secondIndex = cmds.indexOf(';', firstIndex+1);
+  String latitude = cmds.substring(0, firstIndex);
+  String longitude = cmds.substring(firstIndex+1, secondIndex);
+  latWaypoint[countWaypoint] = latitude;
+  longWaypoint[countWaypoint] = longitude;
+  Serial.println("Latitude" + String(countWaypoint) + ": " + latWaypoint[countWaypoint]);
+  Serial.println("Longitude" + String(countWaypoint) + ": " + longWaypoint[countWaypoint]);
+  countWaypoint++;
+  if (countWaypoint >= 5) {
+    countWaypoint = 5;
+  }
+}
 
+void delWP() {
+  Serial.println("Delete Waypoint");
+  countWaypoint--;
+  if(countWaypoint >= 0){
+    Serial.println("Latitude" + String(countWaypoint) + ": " + latWaypoint[countWaypoint]);
+    Serial.println("Longitude" + String(countWaypoint) + ": " + longWaypoint[countWaypoint]);
+    latWaypoint[countWaypoint] = "";
+    longWaypoint[countWaypoint] = "";
+  }
+}
+
+void checkWP() {
+  Serial.println("Check Waypoint");
+  for (int i = 0; i < 5; i++) {
+    Serial.print("Latitude" + String(i) + ": ");
+    Serial.println(latWaypoint[i]);
+    Serial.print("Longitude" + String(i) + ": ");
+    Serial.println(longWaypoint[i]);
+  }
+}
+
+void clearWP() {
+  Serial.println("Clear Waypoint");
+  for (int i = 0; i < 5; i++) {
+    latWaypoint[i] = "";
+    longWaypoint[i] = "";
+  }
+  countWaypoint = 0;
+}
+
+/*void setWaypoint() {
+  int wayPointStatus = 1;
   Serial.println("Set Waypoint");
 
   while (1) {
@@ -47,12 +105,12 @@ void setWaypoint() {
       cmd = "";
     }
   }
-}
+  }
 
-void clearWaypoint() {
+  void clearWaypoint() {
   for (int i = 0; i < 5; i++) {
     latWaypoint[i] = "";
     longWaypoint[i] = "";
   }
   countWaypoint = 0;
-}
+  }*/

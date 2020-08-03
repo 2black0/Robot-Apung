@@ -75,17 +75,29 @@ void setup() {
   pinMode(trigRPin, OUTPUT);
   pinMode(echoRPin, INPUT);  
 
-  pinMode(enA, OUTPUT);
-  pinMode(enB, OUTPUT);
-  pinMode(in1, OUTPUT);
-  pinMode(in2, OUTPUT);
-  pinMode(in3, OUTPUT);
-  pinMode(in4, OUTPUT);
+  pinMode(pwm1A, OUTPUT);
+  pinMode(pwm1B, OUTPUT);
+  pinMode(in1A1, OUTPUT);
+  pinMode(in1A2, OUTPUT);
+  pinMode(in1B1, OUTPUT);
+  pinMode(in1B2, OUTPUT);
 
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, LOW);
+  pinMode(pwm2A, OUTPUT);
+  pinMode(pwm2B, OUTPUT);
+  pinMode(in2A1, OUTPUT);
+  pinMode(in2A2, OUTPUT);
+  pinMode(in2B1, OUTPUT);
+  pinMode(in2B2, OUTPUT);
+
+  digitalWrite(in1A1, LOW);
+  digitalWrite(in1A2, LOW);
+  digitalWrite(in1B1, LOW);
+  digitalWrite(in1B2, LOW);
+
+  digitalWrite(in2A1, LOW);
+  digitalWrite(in2A2, LOW);
+  digitalWrite(in2B1, LOW);
+  digitalWrite(in2B2, LOW);
 
   Serial.println("Robot Apung");
   delay(250);

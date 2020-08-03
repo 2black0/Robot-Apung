@@ -2,12 +2,19 @@
 #include <HMC5883L.h>
 #include <TinyGPS++.h>
 
-int enA = 2;
-int in1 = 3;
-int in2 = 4;
-int enB = 7;
-int in3 = 5;
-int in4 = 6;
+int pwm1A = 2;
+int in1A1 = 3;
+int in1A2 = 4;
+int pwm1B = 7;
+int in1B1 = 5;
+int in1B2 = 6;
+
+int pwm2A = 8;
+int in2A1 = 9;
+int in2A2 = 10;
+int pwm2B = 13;
+int in2B1 = 11;
+int in2B2 = 12;
 
 const int trigLPin = 31;
 const int echoLPin = 33;

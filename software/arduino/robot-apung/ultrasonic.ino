@@ -1,10 +1,10 @@
-void getUltrasonic(){
+void getUltrasonic() {
   rangeLeft = readUltrasonic(trigLPin, echoLPin);
   rangeFront = readUltrasonic(trigFPin, echoFPin);
   rangeRight = readUltrasonic(trigRPin, echoRPin);
 }
 
-int readUltrasonic(int trigPin, int echoPin){
+int readUltrasonic(int trigPin, int echoPin) {
   long duration;
   int distance;
 

@@ -1,6 +1,6 @@
 void startup() {
   int numbSats = 0;
-  
+
   Serial.print("Waiting");
   for (int i = 5; i >= 1; i--) {
     Serial.print(".");

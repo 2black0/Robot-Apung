@@ -45,6 +45,7 @@ String longWaypoint[5] = {
 int countWaypoint = 0;
 int countUpdateSensor = 0;
 int goStatus = 0;
+bool waypointStatus = false;
 
 unsigned long distanceWP;
 int GPSCourse;
@@ -62,18 +63,13 @@ int motor_speed = 250;
 TinyGPSPlus gps;
 HMC5883L compass;
 
-void setup() {
-  Serial.begin(115200); // to PC
-  Serial1.begin(9600); // Telemetry
-  Serial2.begin(9600); // GPS
-  delay(100);
-
+void init_pin() {
   pinMode(trigLPin, OUTPUT);
   pinMode(echoLPin, INPUT);
   pinMode(trigFPin, OUTPUT);
   pinMode(echoFPin, INPUT);
   pinMode(trigRPin, OUTPUT);
-  pinMode(echoRPin, INPUT);  
+  pinMode(echoRPin, INPUT);
 
   pinMode(pwm1A, OUTPUT);
   pinMode(pwm1B, OUTPUT);
@@ -98,77 +94,79 @@ void setup() {
   digitalWrite(in2A2, LOW);
   digitalWrite(in2B1, LOW);
   digitalWrite(in2B2, LOW);
+}
 
+void setup() {
+  Serial.begin(115200); // to PC
+  Serial1.begin(9600); // Telemetry
+  Serial2.begin(9600); // GPS
+  init_pin();
+  delay(100);
   Serial.println("Robot Apung");
   delay(250);
-
+  
   Wire.begin(); // Compass
-    compass.begin();
-    compass.setRange(HMC5883L_RANGE_1_3GA);
-    compass.setMeasurementMode(HMC5883L_CONTINOUS);
-    compass.setDataRate(HMC5883L_DATARATE_30HZ);
-    compass.setSamples(HMC5883L_SAMPLES_8);
-    compass.setOffset(0, 0);
+  compass.begin();
+  compass.setRange(HMC5883L_RANGE_1_3GA);
+  compass.setMeasurementMode(HMC5883L_CONTINOUS);
+  compass.setDataRate(HMC5883L_DATARATE_30HZ);
+  compass.setSamples(HMC5883L_SAMPLES_8);
+  compass.setOffset(0, 0);
 
-    startup(); // Wait GPS Locked // startup
-    //setWaypoint(); // Set 5 Waypoints // setwaypoint
+  startup(); // Wait GPS Locked // startup
+  //setWaypoint(); // Set 5 Waypoints // setwaypoint
 }
 
 void loop() {
-  /*while (Serial1.available()) {
-    cmds = Serial1.readString();
-    cmd = cmds.substring(0, 3);
-    countcmds++;
-    if(countcmds >= 100) break;
-    }
-    if (cmd != ""){
-    Serial.println(cmd);
-    }
-    if (cmd == "ADD"){
-    if(finishWP == false){
-      finishWP = addWP();
-    }
-    }
-    if (cmd == "DEL"){
-    delWP();
-    }
-    if (cmd == "CHK"){
-    checkWP();
-    }
-    if (cmd == "CLR"){
-    clearWP();
-    }
-    if (cmd == "GOO"){
-    goWP();
-    }
-    updateSensor();
-    delay(1000);*/
 
-  if (Serial1.available() > 0) {
-    int inByte = Serial1.read();
-    Serial.println(inByte);
-    switch (inByte) {
-      case 'a':
-        addWP();
-        break;
-      case 'b':
-        delWP();
-        break;
-      case 'c':
-        checkWP();
-        break;
-      case 'd':
-        clearWP();
-        break;
-      case 'e':
-        goWP();
-        break;
+  if (waypointStatus == false) {
+    if (Serial1.available() > 0) {
+      int inByte = Serial1.read();
+      Serial.println(inByte);
+      switch (inByte) {
+        case 'a':
+          //addWP();
+          while (1) {
+            if (Serial1.available() > 0) {
+              cmds = Serial1.readString();
+            }
+            delay(10);
+            if (cmds != "") {
+              addWP();
+              break;
+            }
+
+          }
+          break;
+        case 'b':
+          delWP();
+          break;
+        case 'c':
+          checkWP();
+          break;
+        case 'd':
+          clearWP();
+          break;
+        case 'e':
+          goWP();
+          break;
+      }
     }
-  }
-  if(countUpdateSensor > 100){
+  } /*else if (waypointStatus == true) {
+    if (Serial1.available() > 0) {
+      cmds = Serial1.readString();
+    }
+  }*/
+
+  if (countUpdateSensor > 200 && waypointStatus == false) {
     updateSensor();
+    /*if (cmds != ""){
+      Serial.println("data:" + String(cmds));
+      cmds = "";
+      }*/
+    //FakeupdateSensor();
     countUpdateSensor = 0;
   }
   countUpdateSensor++;
-  //delay(1000);
+  delay(10);
 }

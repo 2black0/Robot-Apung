@@ -1,12 +1,12 @@
-void checkCMD(){
+void checkCMD() {
   cmd = "";
   cmds = "";
-  
+
   while (Serial1.available()) {
     cmds = Serial1.readString();
     cmd = cmds.substring(0, 3);
     countcmds++;
-    if(countcmds >= 100) break;
+    if (countcmds >= 100) break;
   }
 }
 
@@ -16,4 +16,4 @@ void checkCMD(){
     teleCom = Serial1.readString();
     return teleCom;
   }
-}*/
+  }*/
